@@ -1,0 +1,43 @@
+name: 'newsexpress --roccoshi'
+
+on:
+  push:
+  schedule:
+     - cron: '0 10,21 * * *'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        presist-credentials: false
+        fetch-depth: 0
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ./requirements.txt
+    - name: Run my script
+      run: |
+        python ./my_script.py
+
+    - name: 'Get Date'
+      run: echo "::set-env name=REPORT_DATE::$(cat ./date)"
+
+    - name: commit
+      run: |
+        git config --global user.email 474617032@qq.com
+        git config --global user.name Lincest
+        git add .
+        git commit --date="${{ REPORT_DATE }} day ago" -m "update" -a
+    
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
