@@ -3,7 +3,7 @@ import random
 
 if __name__ == '__main__':
 
-    randDate = random.randint(0,365)
+    randDate = random.randint(0,700)
     with open("./date", "w", encoding="utf-8") as f:
         f.write(str(randDate))
 
