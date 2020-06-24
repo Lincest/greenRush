@@ -32,10 +32,11 @@ jobs:
 
     - name: commit
       run: |
+        _date = $(cat ./date)
         git config --global user.email 474617032@qq.com
         git config --global user.name Lincest
         git add .
-        git commit --date="${{ REPORT_DATE }} day ago" -m "update" -a
+        git commit --date="$(_date) day ago" -m "update" -a
     
     - name: Push changes
       uses: ad-m/github-push-action@master
