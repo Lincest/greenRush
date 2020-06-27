@@ -3,7 +3,7 @@ name: 'greenRush'
 on:
   push:
   schedule:
-     - cron: '*/5 * * * *'
+     - cron: '3 * */7 * *'
 
 
 jobs:
